@@ -1,6 +1,10 @@
 import { Telegraf, Context } from "telegraf";
 import dotenv from "dotenv";
-import { BOT_TOKEN } from "./config";
+import { BOT_TOKEN } from "../server/config";
+import { balanceCommand } from "./commands/balance";
+import { bridgeCommand } from "./commands/bridge";
+import { depositCommand } from "./commands/deposit";
+import { connectCommand } from "./commands/connect";
 
 dotenv.config();
 
@@ -10,18 +14,24 @@ if (!BOT_TOKEN) {
 
 const bot = new Telegraf<Context>(BOT_TOKEN);
 
-bot.start((ctx: Context) => {
+bot.start((ctx) => {
     ctx.reply(`Hello ${ctx.from?.first_name ?? "user"}! 
 Welcome to Nexu.
-Use /help to see available commands.`);
+Use /help to see available commands.`
+);
 });
 
-bot.help((ctx: Context) => {
-    ctx.reply("Available commands:\n/start \n/balance \n/bridge");
+bot.help((ctx) => {
+    ctx.reply("Available commands:\n/start \n/connect \n/balance \n/bridge \n/deposit");
 });
+
+bot.command("connect", connectCommand);
+bot.command("balance", balanceCommand);
+bot.command("bridge", bridgeCommand);
+bot.command("deposit", depositCommand)
 
 bot.launch();
-console.log("Nexu the bot is now running");
+console.log("Nexu the bot is running");
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
