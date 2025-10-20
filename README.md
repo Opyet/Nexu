@@ -1,2 +1,0 @@
-# Nexu
-EthOnline project
