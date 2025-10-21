@@ -7,9 +7,8 @@ export const bridgeCommand = async (ctx: Context) => {
     await ctx.reply("User not identified.");
     return;
   }
-  // Checks if the wallet exists
   try {
-    await axios.get("http://localhost:4000/api/wallet/balance", { params: { user_id } });
+    await axios.get("http://localhost:3000/api/balance", { params: { user_id } });
   } catch {
     await ctx.reply("You need to create a wallet first using /connect.");
     return;

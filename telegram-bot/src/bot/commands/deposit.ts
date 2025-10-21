@@ -15,7 +15,7 @@ export const depositCommand = async (ctx: Context) => {
     return;
   }
   try {
-    const res = await axios.post("http://localhost:4000/api/wallet/deposit", { user_id, amount });
+    const res = await axios.post("http://localhost:3000/api/deposit", { user_id, amount });
     await ctx.reply(`Deposit of ${amount} completed! Hash: ${res.data.txHash}`);
   } catch (err: any) {
     await ctx.reply("Error while depositing: " + (err.response?.data?.error || err.message));

@@ -8,9 +8,10 @@ export const connectCommand = async (ctx: Context) => {
     return;
   }
   try {
-    const res = await axios.post("http://localhost:4000/api/wallet/create-wallet", { user_id });
-    await ctx.reply(`Carteira criada! Endereço: ${res.data.address}`);
+    const res = await axios.post("http://localhost:3000/api/create-wallet", { user_id });
+    await ctx.reply(`Wallet created! Address: ${res.data.address}`);
   } catch (err: any) {
-    await ctx.reply("Erro ao criar carteira: " + (err.response?.data?.error || err.message));
+    await ctx.reply("user id: " + (user_id));
+    await ctx.reply("Error creating wallet: " + (err?.response?.data?.err || err.message));
   }
 };
